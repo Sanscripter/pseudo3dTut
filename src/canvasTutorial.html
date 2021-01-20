@@ -1,0 +1,98 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          href="css/styles.css">
+    <title>Canvas Tutorial</title>
+</head>
+
+<body class="dark-bg">
+    <div class="flex center">
+        <canvas id="canvas"
+                height="400"
+                width="600"></canvas>
+    </div>
+    <script>
+        const moveUnit = 15;
+        let posXModifier = 0;
+        let posYModifier = 0;
+
+        function posXModifierRight() {
+            posXModifier += moveUnit;
+        }
+
+        function posXModifierLeft() {
+            posXModifier -= moveUnit;
+        }
+
+        function posYModifierDown() {
+            posYModifier += moveUnit;
+        }
+
+        function posYModifierUp() {
+            posYModifier -= moveUnit;
+        }
+
+        window.onload = function () {
+            const canvas = document.getElementById("canvas");
+            //get 2D context
+            const ctx = canvas.getContext("2d");
+
+            // set widht
+            canvas.width = window.innerWidth;
+
+            //fillRect
+            //canvas is a cartesian plane wherein the upper left corner is the origin
+            let rectagleWidth = 40;
+            let rectagleHeight = 70;
+            ctx.fillRect(0, 0, rectagleWidth, rectagleHeight);
+
+            //maybe I can make it interactive
+            const inputMap = {
+                'ArrowRight': posXModifierRight,
+                'ArrowLeft': posXModifierLeft,
+                'ArrowDown': posYModifierDown,
+                'ArrowUp': posYModifierUp,
+            }
+
+
+            document.addEventListener('keydown', (e) => {
+                if (inputMap[e.key]) {
+                    inputMap[e.key]();
+                }
+
+                //clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let newX = posXModifier;
+                let newY = posYModifier;
+
+                if (newX - rectagleWidth > canvas.width) {
+                    newX = 0 - rectagleWidth;
+                    posXModifier = newX;
+                }
+
+                if (newX + rectagleWidth < 0) {
+                    newX = canvas.width;
+                    posXModifier = newX;
+                }
+                
+                if (newY - rectagleHeight > canvas.height) {
+                    newY = 0 - rectagleHeight;
+                    posYModifier = newY;
+                }
+
+                if (newY + rectagleHeight < 0) {
+                    newY = canvas.height;
+                    posYModifier = newY;
+                }
+                
+                ctx.fillRect(newX, newY, rectagleWidth, rectagleHeight);
+            })
+        }
+    </script>
+</body>
+
+</html>

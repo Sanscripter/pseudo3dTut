@@ -1,0 +1,27 @@
+*, body, html {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 30px;
+}
+
+canvas {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    background-color: red;
+}
+
+.flex {
+    display: flex;
+    width: 100%;
+}
+
+.center {
+    align-items: center;
+    justify-content: center;
+}
+
+.dark-bg {
+    background-color: rgba(46, 42, 42, 0.801);
+}
